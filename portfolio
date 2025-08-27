@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Портфоліо Дані - Developer</title>
+  <style>
+    /* --- Основні стилі --- */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #0D0F1C; /* Дуже темний фон */
+      color: #E0E0E0; /* Світло-сірий текст */
+      line-height: 1.7;
+      scroll-behavior: smooth;
+      overflow-x: hidden; /* Запобігає горизонтальному прокручуванню */
+    }
+
+    /* --- Хедер і меню --- */
+    header {
+      position: fixed; /* Фіксований хедер */
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(13, 15, 28, 0.8); /* Напівпрозорий фон для ефекту розмиття */
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 8%;
+      border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #9CE7F6; /* Блакитний колір для лого */
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+    }
+    nav ul li {
+      margin-left: 2.5rem;
+    }
+    nav a {
+      color: #B0B0B0;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background: #3b82f6; /* Синя підсвітка */
+      transition: width 0.3s ease;
+    }
+    nav a:hover {
+      color: #9CE7F6;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* --- Секції --- */
+    section {
+      padding: 8rem 8% 4rem; /* Збільшений відступ зверху для фіксованого хедера */
+      animation: fadeIn 1.2s ease forwards; /* forwards, щоб стан зберігався */
+      opacity: 0; /* Початкова прозорість для анімації */
+      min-height: 100vh; /* Щоб секції займали мінімум всю висоту вьюпорту */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative; /* Для псевдоелементів або фонових фігур */
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      font-weight: 700;
+      color: #F8F8F8;
+      text-align: center;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -15px;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #9CE7F6);
+      border-radius: 2px;
+    }
+
+    /* --- Герой секція (Developer) --- */
+    #hero {
+      padding-top: 15rem; /* Ще більше відступу для центрованого тексту */
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #0D0F1C;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero h1 {
+      font-size: 5rem;
+      font-weight: 700;
+      color: #F8F8F8;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 2;
+    }
+
+    #hero p {
+      font-size: 1.5rem;
+      color: #B0B0B0;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      line-height: 1.4;
+      position: relative;
+      z-index: 2;
+    }
+
+    #hero .action-btn {
+        display: inline-block;
+        background: linear-gradient(45deg, #3b82f6, #9CE7F6);
+        color: #0D0F1C;
+        padding: 0.9rem 2.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        position: relative;
+        z-index: 2;
+    }
+    #hero .action-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(59, 130, 246, 0.6);
+    }
+
+
+    .mountain-bg {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 1000px;
+        height: auto;
+        opacity: 0.1;
+        pointer-events: none;
+        z-index: 1;
+    }
+    .mountain-bg svg {
+        width: 100%;
+        height: auto;
+        fill: #3b82f6; /* Колір для гір */
+    }
+
+    /* --- Про себе --- */
+    #about p {
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #C0C0C0;
+    }
+
+    /* --- Список навичок --- */
+    #skills ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    #skills ul li {
+      background: #1A1F36; /* Темніший синій фон */
+      margin: 0;
+      padding: 1.2rem 1.5rem;
+      border-radius: 15px;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+      font-size: 1.1rem;
+      color: #E0E0E0;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #skills ul li::before {
+        content: '✓'; /* Галочка або інший символ */
+        color: #9CE7F6;
+        font-size: 1.4rem;
+        margin-right: 10px;
+        line-height: 1;
+    }
+    #skills ul li:hover {
+      background: #25335A; /* Трохи світліший при наведенні */
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    /* --- Досвід (картки) --- */
+    #experience .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    #experience .card {
+      background: #1A1F36;
+      padding: 2rem;
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: transform 0.4s ease, background 0.3s ease, box-shadow 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    #experience .card::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 60px;
+        height: 60px;
+        background: radial-gradient(circle, rgba(59,130,246,0.3) 0%, rgba(59,130,246,0) 70%);
+        border-radius: 50%;
+        transition: all 0.4s ease;
+        z-index: 0;
+    }
+    #experience .card:hover::before {
+        top: -10px;
+        right: -10px;
+        width: 80px;
+        height: 80px;
+    }
+    #experience .card:hover {
+      background: #25335A;
+      transform: translateY(-12px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    }
+    #experience .card h3 {
+      margin-bottom: 1.2rem;
+      color: #9CE7F6;
+      font-size: 1.8rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+    #experience .card ul {
+      list-style: none; /* Прибираємо стандартні маркери */
+      padding-left: 0;
+    }
+    #experience .card ul li {
+      background: none; /* Прибираємо фон, заданий для загальних li */
+      padding: 0.5rem 0;
+      border-radius: 0;
+      transition: none;
+      font-size: 1rem;
+      color: #D0D0D0;
+      position: relative;
+      padding-left: 20px; /* Відступ для кастомного маркера */
+    }
+    #experience .card ul li::before {
+        content: '•'; /* Кастомний маркер */
+        color: #3b82f6;
+        position: absolute;
+        left: 0;
+        font-size: 1.5rem;
+        line-height: 1;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    #experience .card ul li:hover {
+        transform: none;
+        background: none;
+    }
+
+    /* --- Контакти --- */
+    #contacts {
+        text-align: center;
+        padding-bottom: 8rem; /* Збільшений нижній відступ */
+    }
+    #contacts p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        color: #C0C0C0;
+    }
+    #contacts a {
+      color: #9CE7F6;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease, text-decoration 0.3s ease;
+    }
+    #contacts a:hover {
+      color: #3b82f6;
+      text-decoration: underline;
+    }
+    #contacts .social-links {
+        margin-top: 2rem;
+    }
+    #contacts .social-links a {
+        display: inline-block;
+        background: #1A1F36;
+        color: #9CE7F6;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 50%;
+        margin: 0 0.8rem;
+        font-size: 1.5rem;
+        transition: background 0.3s ease, transform 0.3s ease, color 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    #contacts .social-links a:hover {
+        background: #3b82f6;
+        color: #F8F8F8;
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 8px 15px rgba(59, 130, 246, 0.5);
+    }
+    
+    /* --- Футер --- */
+    footer {
+      background: #090B16;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 0;
+      color: #707070;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(59, 130, 246, 0.1);
+    }
+
+
+    /* --- Анімації --- */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* --- Адаптивність --- */
+    @media (max-width: 992px) {
+        #hero h1 {
+            font-size: 4rem;
+        }
+        #hero p {
+            font-size: 1.3rem;
+        }
+        h2 {
+            font-size: 2.2rem;
+        }
+        section {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 5%;
+      }
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+        align-items: flex-start;
+      }
+      nav ul li {
+        margin: 0.5rem 0;
+      }
+      nav a {
+        font-size: 1rem;
+      }
+
+      #hero {
+        padding-top: 10rem;
+      }
+      #hero h1 {
+        font-size: 3rem;
+      }
+      #hero p {
+        font-size: 1.1rem;
+      }
+      #hero .action-btn {
+          padding: 0.8rem 2rem;
+          font-size: 1rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      #skills ul, #experience .experience-grid {
+        grid-template-columns: 1fr;
+      }
+      #skills ul li, #experience .card {
+          padding: 1rem 1.2rem;
+      }
+
+      #about p {
+        font-size: 1rem;
+      }
+
+      #contacts p {
+          font-size: 1rem;
+      }
+      #contacts .social-links a {
+          width: 45px;
+          height: 45px;
+          line-height: 45px;
+          font-size: 1.3rem;
+          margin: 0 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+        #hero h1 {
+            font-size: 2.5rem;
+        }
+        #hero p {
+            font-size: 1rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+        }
+        section {
+            padding-top: 6rem;
+            padding-bottom: 2rem;
+        }
+    }
+
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">Abetik</div>
+    <nav>
+      <ul>
+        <li><a href="#about">Про себе</a></li>
+        <li><a href="#skills">Навички</a></li>
+        <li><a href="#experience">Досвід</a></li>
+        <li><a href="#contacts">Контакти</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="hero">
+    <h1>Developer</h1>
+    <p>Розробка веб-сайтів, ПК-додатків та дизайн за приємною ціною та швидко!</p>
+    <a href="#contacts" class="action-btn">Зв'язатись зі мною</a>
+    <div class="mountain-bg">
+        <svg viewBox="0 0 1000 200" preserveAspectRatio="none">
+            <path d="M0,150 L200,50 L400,100 L600,0 L800,80 L1000,20 L1000,200 L0,200 Z" fill="currentColor"/>
+        </svg>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>Про себе</h2>
+    <p>
+      Граю у різні ігри, маю великий досвід у сфері адміністрування і модерації серверів. 
+      Колись хотів бачити себе у ролі модератора в грі GTA і надалі розвиваюсь у цій сфері. 
+      Вмію працювати з адміністрацією, організовувати івенти та підтримувати порядок на серверах.
+    </p>
+  </section>
+
+  <section id="skills">
+    <h2>Навички</h2>
+    <ul>
+      <li>Користування програмами перевірок</li>
+      <li>Перевірка адмінів і гравців на порушення</li>
+      <li>Слідкування за сервером</li>
+      <li>Проведення перевірок на ПО (чіти)</li>
+      <li>Дизайн Discord-серверів</li>
+      <li>Управління адміністрацією</li>
+      <li>Організація івентів</li>
+      <li>Багато додаткових навичок у сфері адміністрування</li>
+    </ul>
+  </section>
+
+  <section id="experience">
+    <h2>Досвід</h2>
+    <div class="experience-grid">
+      <div class="card">
+        <h3>GTA</h3>
+        <ul>
+          <li>Majestic RP — S. Moderator</li>
+          <li>Radmir — Moderator</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Unturned</h3>
+        <ul>
+          <li>UnityPlay — Admin</li>
+          <li>Next RP — Admin</li>
+          <li>Falko RP — Admin</li>
+          <li>WW3 — Admin</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Minecraft</h3>
+        <ul>
+          <li>TopMine — Admin</li>
+          <li>MWserv — St. Admin</li>
+          <li>Griefland — Helper</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <h2>Контакти</h2>
+    <p>
+      Discord: <a href="https://discordapp.com/users/jasse7" target="_blank" rel="noopener noreferrer">jasse7</a><br>
+      Gmail: <a href="mailto:dangermaister@gmail.com">dangermaister@gmail.com</a>
+    </p>
+    <div class="social-links">
+        <a href="https://discordapp.com/users/jasse7" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i></a>
+        <a href="mailto:dangermaister@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Даня. Усі права захищено.</p>
+  </footer>
+
+</body>
+</html>
